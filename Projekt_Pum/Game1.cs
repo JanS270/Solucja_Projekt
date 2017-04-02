@@ -26,6 +26,8 @@ namespace Projekt_Pum
         int kierunek = 1;
         private SpriteFont font; // Napis
 
+        private int IloscKlatek = 4; // ilosc klatek w danej animacji  
+
 
 
 
@@ -86,13 +88,14 @@ namespace Projekt_Pum
 
             font = Content.Load<SpriteFont>("File"); // Use the name of your sprite font file
 
+            // Wczytywanie tekstur Animacji
             PlayerMoveTexture.Add(Content.Load<Texture2D>("Right_140"));   //0
             PlayerMoveTexture.Add(Content.Load<Texture2D>("Left_140"));    //1
             PlayerMoveTexture.Add(Content.Load<Texture2D>("Back_140"));    //2
             PlayerMoveTexture.Add(Content.Load<Texture2D>("Front_140"));   //3 
             PlayerMoveTexture.Add(Content.Load<Texture2D>("Idle_140"));    //4
 
-            Gracz = new Player(PlayerMoveTexture[0], 1, 4, 10, 600); // Przekazuje teksture do postaci
+            Gracz = new Player(PlayerMoveTexture[0], 1, IloscKlatek, 10, 600); // Przekazuje teksture do postaci
         }
 
 
@@ -113,8 +116,7 @@ namespace Projekt_Pum
 
 
         ///------------------       UPDATE    ------------------------------------------/////
-
-
+        ///
 
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace Projekt_Pum
 
             // TODO: Add your update logic here
 
-            Gracz.gin(gameTime); // TODO: opdowiada za obnizanie sie statystyk wywoluje metody Player
+            Gracz.gin(gameTime); // TODO: opdowiada za obnizanie sie statystyk wywoluje metody klasy Player
             Gracz.Update(gameTime);
 
             if (Gracz.PosX <= 10) kierunek = 1;      // PRAWO
@@ -138,7 +140,7 @@ namespace Projekt_Pum
             if (Gracz.PosX <= 5) kierunek = 4;       // Down
             if (Gracz.PosY >= 650) kierunek = 0;     // IDLE
 
-            Gracz.Move(kierunek, PlayerMoveTexture);    // Sterowanie Postacia
+            Gracz.Move(kierunek, PlayerMoveTexture);    // Sterowanie Postacia i zmiana Animacji
 
             base.Update(gameTime);
         }
